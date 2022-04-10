@@ -1,8 +1,12 @@
+import React, { useEffect, useState } from 'react';
+
 import Header from "../../components/header/Header";
 import NftCard from "../../components/nft/NFTCard";
 
 import CategoryButton from "../../components/common/CategoryButton";
 import SortPriceButton from "../../components/common/SortPriceButton";
+
+import axios from "axios"
 
 const style = {
   collectionWrapper: "overflow-hidden py-0 px-[28px] block",
@@ -27,6 +31,17 @@ const style = {
 };
 
 const ExplorePage = () => {
+  const [assets, setAssets] = useState([]);
+
+  useEffect(() => { 
+    console.log("Hello")
+    const fetchAssets = async () => {
+      const { data } = await axios.get("/api/assets");
+      setAssets(data);
+    }
+    fetchAssets();
+  }, [])
+
   return (
     <>
       <Header />

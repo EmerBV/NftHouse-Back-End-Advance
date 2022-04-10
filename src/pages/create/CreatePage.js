@@ -89,7 +89,7 @@ const CreatePage = () => {
                       className={style.imageInput}
                       accept="image/*, video/*, audio/*"
                       type="file"
-                      autocomplete="off"
+                      autoComplete="off"
                       overflow="hidden"
                       required
                     />                  
@@ -148,7 +148,15 @@ const CreatePage = () => {
                           <option className={style.optionContainer}>
                             Select category
                           </option>
-                          <option className={style.optionContainer}></option>
+                          <option className={style.optionContainer}>
+                            Art
+                          </option>
+                          <option className={style.optionContainer}>
+                            Collectibles
+                          </option>
+                          <option className={style.optionContainer}>
+                            Photography
+                          </option>
                         </select>
                       </div>
 

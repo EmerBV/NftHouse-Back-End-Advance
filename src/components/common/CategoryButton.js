@@ -14,6 +14,15 @@ const CategoryButton = () => {
         <option className={style.selectOptions}>
           Select category
         </option>
+        <option className={style.selectOptions}>
+          Art
+        </option>
+        <option className={style.selectOptions}>
+          Collectibles
+        </option>
+        <option className={style.selectOptions}>
+          Photography
+        </option>
       </select>
     </div>
   );
