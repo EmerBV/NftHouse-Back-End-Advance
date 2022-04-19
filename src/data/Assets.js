@@ -6,7 +6,7 @@ const Assets = [
         price: 1,
         category: "Art",
         likes: 1,
-        event: "sale"
+        sale: true
     },
     {
         _id: "2",
@@ -15,7 +15,7 @@ const Assets = [
         price: 2,
         category: "Art",
         likes: 2,
-        event: "sale"
+        sale: true
     },
     {
         _id: "3",
@@ -24,7 +24,7 @@ const Assets = [
         price: 3,
         category: "Art",
         likes: 3,
-        event: "sale"
+        sale: true
     }
 ]
 

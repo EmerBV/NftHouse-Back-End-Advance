@@ -1,0 +1,16 @@
+{
+	"Contitional example": "Ejemplo de condicionales",
+	"Loop example": "Ejemplo de bucles",
+	"i18n example for plurals": "i18n ejemplo con plurales",
+	"Mouse": {
+		"one": "Ratón",
+		"other": "Ratones"
+	},
+	"this is an example": "esto es un ejemplo",
+	"Features title": "Título de caractrísticas",
+	"Login": "Login",
+	"Invalid credentials": "Invalid credentials",
+	"Private Zone": "Private Zone",
+	"Logout": "Logout",
+	"Private": "Private"
+}
