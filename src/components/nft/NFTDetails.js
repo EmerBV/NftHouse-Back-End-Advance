@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 import { AiFillHeart } from "react-icons/ai";
 import { MdRefresh } from "react-icons/md";
 import { RiShareBoxLine } from "react-icons/ri";
@@ -22,6 +24,8 @@ const style = {
 };
 
 const NFTDetails = () => {
+  const { t } = useTranslation(['es']);
+
   return (
     <div className={style.wrapper}>
       <div className={style.infoContainer}>
@@ -29,11 +33,11 @@ const NFTDetails = () => {
         <div className={style.nftTitle}>Azuki</div>
         <div className={style.otherInfo}>
           <div className={style.ownedBy}>
-            Owned by<span className={style.ownedByName}>EmerBV</span>
+            {t("Owned by")}<span className={style.ownedByName}>EmerBV</span>
           </div>
           <div className={style.likes}>
             <AiFillHeart className={style.likeIcon} />
-            2.3K favorites
+            2.3K {t("favorites")}
           </div>
         </div>
       </div>

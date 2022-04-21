@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useTranslation } from "react-i18next";
 
 import {
   AiOutlineTwitter,
@@ -21,9 +22,11 @@ const style = {
 }
 
 const Footer = () => {
+  const { t } = useTranslation(['es']);
+
   return (
     <footer className={style.footerContainer}>
-      <div className={style.joinText}>Join the community</div>
+      <div className={style.joinText}>{t("Join the community")}</div>
       <div className={style.social}>
         <div className={style.iconWrapper}>
           <Link to="/" className={style.socialItem}>
@@ -50,22 +53,22 @@ const Footer = () => {
       <ul className={style.list}>
         <li>
           <Link to="/" className={style.listItem}>
-            Privacy Policy
+            {t("Privacy Policy")}
           </Link>
         </li>
         <li>
           <Link to="/" className={style.listItem}>
-            About
+            {t("About")}
           </Link>
         </li>
         <li>
           <Link to="/" className={style.listItem}>
-            Terms of Service
+            {t("Terms of Service")}
           </Link>
         </li>
         <li>
           <Link to="/" className={style.listItem}>
-            Contact Us
+            {t("Contact Us")}
           </Link>
         </li>
       </ul>

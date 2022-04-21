@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import axios from "axios";
 
 import NftImg from "../../images/1.png";
@@ -30,6 +31,8 @@ const style = {
 };
 
 const NftCard = ({ match }) => {
+  const { t } = useTranslation(['es']);
+
   const navigate = useNavigate();
 
   const [asset, setAsset] = useState({});
@@ -56,7 +59,7 @@ const NftCard = ({ match }) => {
           </div>
 
           <div className={style.infoRight}>
-            <div className={style.priceTag}>Price</div>
+            <div className={style.priceTag}>{t("Price")}</div>
             <div className={style.priceValue}>
               <img className={style.cardEthLogo} src={EthLogo} alt="" />
               12

@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
@@ -20,6 +21,8 @@ const style = {
 };
 
 const SignupPage = () => {
+  const { t } = useTranslation(['es']);
+
   return (
     <>
       <Header />
@@ -27,7 +30,7 @@ const SignupPage = () => {
       <div className={style.signupWrapper}>
         <div className={style.signupContainer}>
           <div className={style.container}>
-            <h1 className={style.signupText}>Sign Up</h1>
+            <h1 className={style.signupText}>{t("Sign Up")}</h1>
             <form className={style.formContainer}>
               <div className={style.inputWrapper}>
                 <input
@@ -35,7 +38,7 @@ const SignupPage = () => {
                   type="text"
                   name="textInput"
                   id="textInput"
-                  placeholder="Email"
+                  placeholder={t("Email")}
                   required
                 />
               </div>
@@ -45,7 +48,7 @@ const SignupPage = () => {
                   type="password"
                   name="passwordInput"
                   id="passwordInput"
-                  placeholder="Password"
+                  placeholder={t("Password")}
                   required
                 />
               </div>
@@ -55,7 +58,7 @@ const SignupPage = () => {
                   type="text"
                   name="username"
                   id="passwordMatchInput"
-                  placeholder="Username"
+                  placeholder={t("Username")}
                   required
                 />
               </div>
@@ -65,14 +68,14 @@ const SignupPage = () => {
                   type="text"
                   name="textInput"
                   id="textInput"
-                  placeholder="Name"
+                  placeholder={t("Name")}
                   required
                 />
               </div>
 
               <div className={style.buttonContainer}>
                 <button className={style.submitButton} type="submit" disabled>
-                  CONFIRM
+                  {t("CONFIRM")}
                 </button>
               </div>
             </form>

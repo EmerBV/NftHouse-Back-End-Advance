@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 import Header from "../../components/header/Header";
 
 import { IoMdWallet, IoMdImage, IoMdClose } from "react-icons/io";
@@ -17,7 +19,7 @@ const style = {
   imageWrapper: "flex flex-col text-[25px] text-white my-4",
   imageTextContainer: "flex flex-col mb-[8px]",
   imageTittle: "flex font-semibold text-[20px] mb-[4px]",
-  imageText: "flex font-medium text-[13px] text-[#8A939B]",
+  imageText: "flex font-medium text-[13px] text-[#8A939B] text-left",
   imageInputContainer:
     "relative p-[4px] border-dashed border-[3px] rounded-[10px] justify-center items-center flex  h-[257px] w-[350px]",
   imageInput:
@@ -57,6 +59,8 @@ const CreatePage = () => {
     }
   }, [image]); */
 
+  const { t } = useTranslation(['es']);
+
   return (
     <>
       <Header />
@@ -65,23 +69,23 @@ const CreatePage = () => {
         <div className={style.createContainer}>
           <div className={style.formWrapper}>
             <div className={style.createTextContainer}>
-              <h1 className={style.createText}>Create New Item</h1>
+              <h1 className={style.createText}>{t("Create New Item")}</h1>
             </div>
             <form className={style.formContainer}>
               <p className={style.detailTopContent}>
                 <span className={style.asterisk}>*</span>
-                Required fields
+                {t("Required fields")}
               </p>
               <div className={style.generalWrapper}>
                 <div className={style.imageWrapper}>
                   <div className={style.imageTextContainer}>
                     <label className={style.imageTittle}>
-                      Image, Video, Audio, or 3D Model
+                      {t("Image, Video, Audio, or 3D Model")}
                       <span className={style.asterisk}>*</span>
                     </label>
                     <span className={style.imageText}>
-                      File types supported: JPG, PNG, GIF, SVG, MP4, WEBM, MP3,
-                      WAV, OGG, GLB, GLTF. Max size: 100 MB
+                      {t("File types supported")}: JPG, PNG, GIF, SVG, MP4, WEBM, MP3,
+                      WAV, OGG, GLB, GLTF. Max {t("size")}: 100 MB
                     </span>
                   </div>
                   <div className={style.imageInputContainer} role="button">
@@ -115,71 +119,68 @@ const CreatePage = () => {
                   <div className={style.detailsContainer}>
                     <div className={style.generalInfoContainer}>
                       <label className={style.inputsLabel}>
-                        Name
+                        {t("Name")}
                         <span className={style.asterisk}>*</span>
                       </label>
                       <div className={style.inputsContainer}>
                         <input
                           className={style.placeholderContainer}
                           type="text"
-                          placeholder="Item name"
+                          placeholder={t("Item name")}
                           required
                         />
                       </div>
 
                       <label className={style.inputsLabel}>
-                        Price
+                        {t("Price")}
                         <span className={style.asterisk}>*</span>
                       </label>
                       <div className={style.inputsContainer}>
                         <input
                           className={style.placeholderContainer}
-                          placeholder="Item price"
+                          placeholder={t("Item price")}
                           required
                         />
                       </div>
 
                       <label className={style.inputsLabel}>
-                        Category
+                        {t("Category")}
                         <span className={style.asterisk}>*</span>
                       </label>
                       <div className={style.inputsContainer}>
                         <select className={style.selectContainer}>
                           <option className={style.optionContainer}>
-                            Select category
+                            {t("Select category")}
                           </option>
                           <option className={style.optionContainer}>
-                            Art
+                            {t("Art")}
                           </option>
                           <option className={style.optionContainer}>
-                            Collectibles
-                          </option>
-                          <option className={style.optionContainer}>
-                            Photography
+                            {t("Collectibles")}
                           </option>
                         </select>
                       </div>
 
                       <label className={style.inputsLabel}>
-                        Event
+                        {t("Event")}
                         <span className={style.asterisk}>*</span>
                       </label>
                       <div className={style.inputsContainer}>
                         <select className={style.selectContainer}>
                           <option className={style.optionContainer}>
-                            Select an event
+                            {t("Select an event")}
                           </option>
                           <option
                             className={style.optionContainer}
                             value="false"
                           >
-                            Buy
+                            {t("Buy")}
                           </option>
                           <option
                             className={style.optionContainer}
                             value="true"
                           >
-                            Sale
+                            {t("Sale")}
                           </option>
                         </select>
                       </div>
@@ -189,7 +190,7 @@ const CreatePage = () => {
                           <i className={style.wallet}>
                             <IoMdWallet />
                           </i>
-                          <p className={style.create}>Create</p>
+                          <p className={style.create}>{t("Create")}</p>
                         </button>
                       </div>
                     </div>

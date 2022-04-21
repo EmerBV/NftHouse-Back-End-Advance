@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 const style = {
   sortByContainer:
     "grow md:mt-0 mt-3 ml-0 md:ml-[8px] block order-2 w-full text-white font-normal text-[18px]",
@@ -8,12 +10,18 @@ const style = {
 };
 
 const SortPriceButton = () => {
+  const { t } = useTranslation(["es"]);
+
   return (
     <div className={style.sortByContainer}>
       <select className={style.sortSelect}>
-        <option className={style.selectOptions}>Sort by</option>
-        <option className={style.selectOptions}>Price: Low to High</option>
-        <option className={style.selectOptions}>Price: High to Low</option>
+        <option className={style.selectOptions}>{t("Sort by")}</option>
+        <option className={style.selectOptions}>
+          {t("Price")}: {t("Low to High")}
+        </option>
+        <option className={style.selectOptions}>
+          {t("Price")}: {t("High to Low")}
+        </option>
       </select>
     </div>
   );

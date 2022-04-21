@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-//import i18next from "i18next";
+
 import { useTranslation } from "react-i18next";
 
 import Logo from "../../images/nftHouse-brand.png";
@@ -86,7 +86,7 @@ function Header() {
           <div className={style.headerIconContainer}>
             <NavLink to="/account" end>
               <div className={style.headerIcon}>
-                <CgProfile title="Account" />
+                <CgProfile title={t("Account")} />
               </div>
             </NavLink>
 

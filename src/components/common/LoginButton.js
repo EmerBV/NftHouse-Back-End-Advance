@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 import { IoMdWallet } from 'react-icons/io'
 
 const style = {
@@ -7,13 +9,15 @@ const style = {
 }
 
 function LoginButton () {
+  const { t } = useTranslation(['es']);
+
   return (
     <button
       className={style.loginButton}
-      title="LogIn"
+      title={t("Login")}
     >
       <IoMdWallet />
-      <span className={style.loginText}>LogIn</span>
+      <span className={style.loginText}>{t("Login")}</span>
     </button>
   )
 }

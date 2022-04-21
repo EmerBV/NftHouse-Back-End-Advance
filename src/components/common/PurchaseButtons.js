@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 import { HiTag } from "react-icons/hi";
 import { IoMdWallet } from "react-icons/io";
 
@@ -10,18 +12,20 @@ const style = {
 };
 
 const Purchase = () => {
+  const { t } = useTranslation(['es']);
+
   return (
     <div className={style.purchaseWrapper}>
       <>
         <button className={`${style.button} bg-[#2081e2] hover:bg-[#42a0ff]`}>
           <IoMdWallet className={style.buttonIcon} />
-          <div className={style.buttonText}>Buy Now</div>
+          <div className={style.buttonText}>{t("Buy Now")}</div>
         </button>
         <button
           className={`${style.button} border border-[#151c22]  bg-[#363840] hover:bg-[#4c505c]`}
         >
           <HiTag className={style.buttonIcon} />
-          <div className={style.buttonText}>Make Offer</div>
+          <div className={style.buttonText}>{t("Make Offer")}</div>
         </button>
       </>
     </div>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { CgArrowsExchangeV } from "react-icons/cg";
 import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
@@ -25,6 +26,8 @@ const style = {
 const ItemActivity = () => {
   const [toggle, setToggle] = useState(true);
 
+  const { t } = useTranslation(['es']);
+
   return (
     <div className={style.wrapper}>
       <div className={style.title} onClick={() => setToggle(!toggle)}>
@@ -32,7 +35,7 @@ const ItemActivity = () => {
           <span className={style.titleIcon}>
             <CgArrowsExchangeV />
           </span>
-          Item Activity
+          {t("Item Activity")}
         </div>
         <div className={style.titleRight}>
           {toggle ? <AiOutlineUp /> : <AiOutlineDown />}
@@ -41,18 +44,18 @@ const ItemActivity = () => {
       {toggle && (
         <div className={style.activityTable}>
           <div className={style.filter}>
-            <div className={style.filterTitle}>Filter</div>
+            <div className={style.filterTitle}>{t("Filter")}</div>
             <div className={style.filterIcon}>
               {" "}
               <AiOutlineDown />{" "}
             </div>
           </div>
           <div className={style.tableHeader}>
-            <div className={`${style.tableHeaderElement} flex-[2]`}>Event</div>
-            <div className={`${style.tableHeaderElement} flex-[2]`}>Price</div>
-            <div className={`${style.tableHeaderElement} flex-[3]`}>From</div>
-            <div className={`${style.tableHeaderElement} flex-[3]`}>To</div>
-            <div className={`${style.tableHeaderElement} flex-[2]`}>Date</div>
+            <div className={`${style.tableHeaderElement} flex-[2]`}>{t("Event")}</div>
+            <div className={`${style.tableHeaderElement} flex-[2]`}>{t("Price")}</div>
+            <div className={`${style.tableHeaderElement} flex-[3]`}>{t("From")}</div>
+            <div className={`${style.tableHeaderElement} flex-[3]`}>{t("To")}</div>
+            <div className={`${style.tableHeaderElement} flex-[2]`}>{t("Date")}</div>
           </div>
 
           <EventItem />

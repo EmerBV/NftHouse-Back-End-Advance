@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
@@ -21,13 +22,15 @@ const style = {
   questionContainer: "flex justify-center items-center",
 };
 function LoginPage() {
+  const { t } = useTranslation(['es']);
+
   return (
     <>
       <Header />
 
       <div className={style.signinWrapper}>
         <div className={style.signinContainer}>
-          <h1 className={style.signinText}>Sign In</h1>
+          <h1 className={style.signinText}>{t("Sign In")}</h1>
 
           <form className={style.formContainer}>
             <div className={style.inputContainer}>
@@ -36,7 +39,7 @@ function LoginPage() {
                 type="text"
                 name="email"
                 autoComplete="off"
-                placeholder="Email"
+                placeholder={t("Email")}
                 required
               />
             </div>
@@ -46,13 +49,13 @@ function LoginPage() {
                 type="password"
                 name="password"
                 autoComplete="off"
-                placeholder="Password"
+                placeholder={t("Password")}
                 required
               />
             </div>
 
             <input type="checkbox" name="remember" value="remember" />
-            <label className="ml-2 text-white">Remember me</label>
+            <label className="ml-2 text-white text-[20px]">{t("Remember me")}</label>
 
             <div className={style.loginBtnContainer}>
               <button className={style.loginBtn} type="submit" disabled>
@@ -60,12 +63,12 @@ function LoginPage() {
               </button>
             </div>
             <div className={style.questionContainer}>
-              <p className="text-white">
-                Don't have an{" "}
+              <p className="text-white text-[20px]">
+                {t("Don't have an")}{" "}
                 <Link to="/signup" className="hover:text-[#2081e2]">
-                  account
+                  {t("account")}
                 </Link>{" "}
-                yet?
+                {t("yet?")}
               </p>
             </div>
           </form>

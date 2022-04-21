@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from "react-i18next";
+import axios from "axios"
 
 import Header from "../../components/header/Header";
 import NftCard from "../../components/nft/NFTCard";
 
 import CategoryButton from "../../components/common/CategoryButton";
 import SortPriceButton from "../../components/common/SortPriceButton";
-
-import axios from "axios"
 
 const style = {
   collectionWrapper: "overflow-hidden py-0 px-[28px] block",
@@ -31,6 +31,8 @@ const style = {
 };
 
 const ExplorePage = () => {
+  const { t } = useTranslation(['es']);
+
   const [assets, setAssets] = useState([]);
 
   useEffect(() => { 
@@ -49,7 +51,7 @@ const ExplorePage = () => {
       <div className={style.collectionWrapper}>
         <div className={style.collectionContainer}>
           <div className={style.itemsTextContainer}>
-            <p className={style.itemsText}>Items</p>
+            <p className={style.itemsText}>{t("items")}</p>
           </div>
 
           <div className={style.filterWrapper}>
