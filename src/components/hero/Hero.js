@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useTranslation } from "react-i18next";
 
 import Header from '../header/Header'
 import Footer from '../footer/Footer'
@@ -34,6 +35,8 @@ const style = {
 }
 
 const Hero = () => {
+  const { t } = useTranslation(['es']);
+
   return (
     <>
       <div className={style.wrapper}>
@@ -42,17 +45,17 @@ const Hero = () => {
           <div className={style.contentWrapper}>
             <div className={style.copyContainer}>
               <h1 className={style.title}>
-                Discover, collect and sell extraordinary NFTs
+                {t("Discover, collect and sell extraordinary NFTs")}
               </h1>
               <span className={style.heroDescription}>
-                NftHouse is the world's first and largest NFT marketplace.
+                {t("NftHouse is the world's first and largest NFT marketplace.")}
               </span>
               <div className={style.ctaContainer}>
                 <Link to="/assets" className={style.accentedButton}>
-                  Explore
+                  {t("Explore")}
                 </Link>
                 <Link to="/asset/create" className={style.button}>
-                  Create
+                  {t("Create")}
                 </Link>
               </div>
             </div>

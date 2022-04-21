@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-
-import LoginButton from "../../pages/login/LoginButton";
+//import i18next from "i18next";
+import { useTranslation } from "react-i18next";
 
 import Logo from "../../images/nftHouse-brand.png";
+
+import LanguageButton from "../common/LanguageButton";
+import LoginButton from "../common/LoginButton";
 
 import { AiOutlineSearch, AiOutlineMenu } from "react-icons/ai";
 import { CgProfile, CgClose } from "react-icons/cg";
@@ -34,6 +37,8 @@ const style = {
 
 function Header() {
   const [open, setOpen] = useState(false);
+
+  const { t } = useTranslation(['es']);
 
   return (
     <nav className={style.navWrapper}>
@@ -66,24 +71,16 @@ function Header() {
             </div>
             <input
               className={style.searchInput}
-              placeholder="Search items, collections and accounts"
+              placeholder={t("Search items, collections and accounts")}
             />
           </div>
 
           <NavLink to="/assets">
-            <div className={style.headerItem}>Explore</div>
-          </NavLink>
-
-          <NavLink to="/404">
-            <div className={style.headerItem}>Stats</div>
-          </NavLink>
-
-          <NavLink to="/404">
-            <div className={style.headerItem}>Resources</div>
+            <div className={style.headerItem}>{t("Explore")}</div>
           </NavLink>
 
           <NavLink to="/asset/create">
-            <div className={style.headerItem}>Create</div>
+            <div className={style.headerItem}>{t("Create")}</div>
           </NavLink>
 
           <div className={style.headerIconContainer}>
@@ -94,8 +91,10 @@ function Header() {
             </NavLink>
 
             <NavLink to="/login">            
-                <LoginButton />                         
+                <LoginButton />                      
             </NavLink>
+
+            <LanguageButton />
           </div>
         </div>
       </div>

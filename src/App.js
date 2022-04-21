@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import Hero from "./components/hero/Hero";
@@ -16,18 +17,20 @@ function App() {
     <div className="App">
       <div className="m-0 w-full h-full block">
         <div className="flex flex-col min-h-full">
-          <Routes>
-            <Route index element={<Hero />} />
-            <Route path="/assets" element={<ExplorePage />} />
-            <Route path="/asset/:id" element={<Nft />} />
-            <Route path="/asset/create" element={<CreatePage />} />
-            <Route path="/account" element={<AccountPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignupPage />} />
-            <Route path="/" element={<Navigate to="/assets" />} />
-            <Route path="/404" element={<NotFoundPage />} />
-            <Route path="*" element={<Navigate to="/404" />} />
-          </Routes>
+          <Suspense fallback={null}>
+            <Routes>
+              <Route index element={<Hero />} />
+              <Route path="/assets" element={<ExplorePage />} />
+              <Route path="/asset/:id" element={<Nft />} />
+              <Route path="/asset/create" element={<CreatePage />} />
+              <Route path="/account" element={<AccountPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignupPage />} />
+              <Route path="/" element={<Navigate to="/assets" />} />
+              <Route path="/404" element={<NotFoundPage />} />
+              <Route path="*" element={<Navigate to="/404" />} />
+            </Routes>
+          </Suspense>        
         </div>
       </div>
     </div>
