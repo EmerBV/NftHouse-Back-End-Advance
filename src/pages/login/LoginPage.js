@@ -1,9 +1,12 @@
+import React, { useState, useEffect } from 'react'
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from "react-i18next";
 
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
 
+import { login } from '../../actions/userActions'
 
 const style = {
   signinWrapper:
@@ -21,8 +24,30 @@ const style = {
     "justify-center items-center border border-[#282b2f] bg-[#2081e2] hover:bg-[#42a0ff] text-[25px] font-semibold rounded-lg text-white w-[250px] h-[60px]",
   questionContainer: "flex justify-center items-center",
 };
-function LoginPage() {
+function LoginPage({ location, history }) {
   const { t } = useTranslation(['es']);
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const dispatch = useDispatch()
+
+  const userLogin = useSelector((state) => state.userLogin)
+  //const { loading, error, userInfo } = userLogin
+  const { userInfo } = userLogin
+
+  //const redirect = location.search ? location.search.split('=')[1] : '/'
+
+  useEffect(() => {
+    if (userInfo) {
+      history.push()
+    }
+  }, [history, userInfo])
+
+  const submitHandler = (e) => {
+    e.preventDefault()
+    dispatch(login(email, password))
+  }
 
   return (
     <>
@@ -32,7 +57,7 @@ function LoginPage() {
         <div className={style.signinContainer}>
           <h1 className={style.signinText}>{t("Sign In")}</h1>
 
-          <form className={style.formContainer}>
+          <form className={style.formContainer} onSubmit={submitHandler}>
             <div className={style.inputContainer}>
               <input
                 className={style.placeholderContainer}
@@ -40,6 +65,8 @@ function LoginPage() {
                 name="email"
                 autoComplete="off"
                 placeholder={t("Email")}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
@@ -50,6 +77,8 @@ function LoginPage() {
                 name="password"
                 autoComplete="off"
                 placeholder={t("Password")}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
@@ -58,13 +87,14 @@ function LoginPage() {
             <label className="ml-2 text-white text-[20px]">{t("Remember me")}</label>
 
             <div className={style.loginBtnContainer}>
-              <button className={style.loginBtn} type="submit" disabled>
+              <button className={style.loginBtn} type="submit">
                 LOGIN
               </button>
             </div>
             <div className={style.questionContainer}>
               <p className="text-white text-[20px]">
                 {t("Don't have an")}{" "}
+                {/* <Link to={redirect ? `/signup?signup=${redirect}` : "/signup"} className="hover:text-[#2081e2]"> */}
                 <Link to="/signup" className="hover:text-[#2081e2]">
                   {t("account")}
                 </Link>{" "}

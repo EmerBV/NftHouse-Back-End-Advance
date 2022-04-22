@@ -8,6 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./server.js",
     "server": "nodemon ./server.js",
+    "client": "npm start --prefix ../../../src",
     "dev": "\"npm run server\"",
     "data:import": "node ./initDB",
     "data:destroy": "node ./initDB -d"
@@ -16,6 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "concurrently": "^7.1.0",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",

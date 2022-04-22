@@ -15,6 +15,7 @@ function LoginButton () {
     <button
       className={style.loginButton}
       title={t("Login")}
+      type="submit"
     >
       <IoMdWallet />
       <span className={style.loginText}>{t("Login")}</span>
