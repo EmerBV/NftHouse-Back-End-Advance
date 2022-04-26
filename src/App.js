@@ -19,18 +19,21 @@ function App() {
         <div className="flex flex-col min-h-full">
           <Suspense fallback={null}>
             <Routes>
-              <Route index element={<Hero />} />
+              <Route path="/" element={<Hero />} />
               <Route path="/assets" element={<ExplorePage />} />
               <Route path="/asset/:id" element={<Nft />} />
               <Route path="/asset/create" element={<CreatePage />} />
               <Route path="/account" element={<AccountPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignupPage />} />
-              <Route path="/" element={<Navigate to="/assets" />} />
+              <Route
+                path="/search/:keyword"
+                element={<Navigate to="/assets" />}
+              />
               <Route path="/404" element={<NotFoundPage />} />
               <Route path="*" element={<Navigate to="/404" />} />
             </Routes>
-          </Suspense>        
+          </Suspense>
         </div>
       </div>
     </div>

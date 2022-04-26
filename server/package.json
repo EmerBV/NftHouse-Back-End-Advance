@@ -9,7 +9,7 @@
     "start": "node ./server.js",
     "server": "nodemon ./server.js",
     "client": "npm start --prefix ../../../src",
-    "dev": "\"npm run server\"",
+    "dev": "\"npm run server\" \"npm run client\"",
     "data:import": "node ./initDB",
     "data:destroy": "node ./initDB -d"
   },

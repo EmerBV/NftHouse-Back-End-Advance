@@ -30,12 +30,12 @@ const style = {
   likesText: "flex items-center pl-2",
 };
 
-const NftCard = ({ match }) => {
+const NftCard = ({ asset }) => {
   const { t } = useTranslation(['es']);
 
   const navigate = useNavigate();
 
-  const [asset, setAsset] = useState({});
+  /* const [asset, setAsset] = useState({});
 
   useEffect(() => {
     const fetchAsset = async () => {
@@ -43,26 +43,33 @@ const NftCard = ({ match }) => {
       setAsset(data);
     };
     fetchAsset();
-  }, [match]);
+  }, [match]); */
 
   return (
-    <div className={style.nftWrapper} onClick={() => navigate("/asset/:id")}>
-      <div className={style.imgContainer}>
-        <img className={style.nftImg} src={NftImg} alt="" />
+    <div className={style.nftWrapper}>
+      <div 
+        className={style.imgContainer}
+        onClick={() => {
+          navigate({
+            pathname: `/assets/${asset._id}`
+          })
+        }}
+        >
+        <img className={style.nftImg} src={asset.image || NftImg} alt="" />
       </div>
 
       <div className={style.details}>
         <div className={style.info}>
           <div className={style.infoLeft}>
             <div className={style.collectionName}>Collection</div>
-            <div className={style.assetName}>Name</div>
+            <div className={style.assetName}>{asset.name}</div>
           </div>
 
           <div className={style.infoRight}>
             <div className={style.priceTag}>{t("Price")}</div>
             <div className={style.priceValue}>
               <img className={style.cardEthLogo} src={EthLogo} alt="" />
-              12
+              {asset.price}
             </div>
           </div>
         </div>
@@ -70,7 +77,7 @@ const NftCard = ({ match }) => {
           <span className={style.likeIcon}>
             <BiHeart />
           </span>
-          <p className={style.likesText}>250</p>
+          <p className={style.likesText}>{asset.likes}</p>
         </div>
       </div>
     </div>

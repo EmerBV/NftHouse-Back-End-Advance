@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux'
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+
 import { useTranslation } from "react-i18next";
 
+import { login, reset } from "../../features/user/userSlice";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
-
-import { login } from '../../actions/userActions'
 
 const style = {
   signinWrapper:
@@ -24,30 +25,57 @@ const style = {
     "justify-center items-center border border-[#282b2f] bg-[#2081e2] hover:bg-[#42a0ff] text-[25px] font-semibold rounded-lg text-white w-[250px] h-[60px]",
   questionContainer: "flex justify-center items-center",
 };
-function LoginPage({ location, history }) {
-  const { t } = useTranslation(['es']);
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+function LoginPage() {
+  const { t } = useTranslation(["es"]);
 
-  const dispatch = useDispatch()
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
-  const userLogin = useSelector((state) => state.userLogin)
-  //const { loading, error, userInfo } = userLogin
-  const { userInfo } = userLogin
+  const { email, password } = formData;
 
-  //const redirect = location.search ? location.search.split('=')[1] : '/'
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
 
   useEffect(() => {
-    if (userInfo) {
-      history.push()
+    if (isError) {
+      toast.error(message);
     }
-  }, [history, userInfo])
+
+    if (isSuccess || user) {
+      navigate("/");
+    }
+
+    dispatch(reset());
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
+
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
   const submitHandler = (e) => {
-    e.preventDefault()
-    dispatch(login(email, password))
-  }
+    e.preventDefault();
+
+    const userData = {
+      email,
+      password,
+    };
+
+    dispatch(login(userData));
+
+    if (isLoading) {
+      return;
+    }
+  };
 
   return (
     <>
@@ -61,12 +89,13 @@ function LoginPage({ location, history }) {
             <div className={style.inputContainer}>
               <input
                 className={style.placeholderContainer}
-                type="text"
+                type="email"
+                id="email"
                 name="email"
                 autoComplete="off"
                 placeholder={t("Email")}
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={onChange}
                 required
               />
             </div>
@@ -74,17 +103,20 @@ function LoginPage({ location, history }) {
               <input
                 className={style.placeholderContainer}
                 type="password"
+                id="password"
                 name="password"
                 autoComplete="off"
                 placeholder={t("Password")}
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={onChange}
                 required
               />
             </div>
 
             <input type="checkbox" name="remember" value="remember" />
-            <label className="ml-2 text-white text-[20px]">{t("Remember me")}</label>
+            <label className="ml-2 text-white text-[20px]">
+              {t("Remember me")}
+            </label>
 
             <div className={style.loginBtnContainer}>
               <button className={style.loginBtn} type="submit">
@@ -94,7 +126,6 @@ function LoginPage({ location, history }) {
             <div className={style.questionContainer}>
               <p className="text-white text-[20px]">
                 {t("Don't have an")}{" "}
-                {/* <Link to={redirect ? `/signup?signup=${redirect}` : "/signup"} className="hover:text-[#2081e2]"> */}
                 <Link to="/signup" className="hover:text-[#2081e2]">
                   {t("account")}
                 </Link>{" "}

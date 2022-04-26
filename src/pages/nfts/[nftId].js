@@ -1,3 +1,5 @@
+import { useNavigate, useParams } from 'react-router-dom'
+
 import Header from "../../components/header/Header";
 import NFTImage from "../../components/nft/NFTImage";
 import NFTDetails from "../../components/nft/NFTDetails";
@@ -25,7 +27,7 @@ const style = {
   activityContainer: "overflow-hidden block",
 };
 
-const Nft = () => {
+const Nft = ({ asset }) => {
   return (
     <>
       <Header />
@@ -38,7 +40,7 @@ const Nft = () => {
                 <div className={style.assetContainer}>
                   <div className={style.topContent}>
                     <div className={style.cardContainer}>
-                      <NFTImage />
+                      <NFTImage src={asset.image} />
                     </div>
                     <div className={style.detailsPurchaseWrapper}>
                       <div className={style.detailsPurchaseContainer}>

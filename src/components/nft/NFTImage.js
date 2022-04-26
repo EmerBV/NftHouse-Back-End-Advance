@@ -17,7 +17,7 @@ const style = {
   nftImg: "w-full",
 };
 
-const NFTImage = () => {
+const NFTImage = ({ asset }) => {
   return (
     <div className={style.nftWrapper}>
       <div className={style.topBar}>
@@ -30,7 +30,7 @@ const NFTImage = () => {
         </div>
       </div>
       <div>
-        <img className={style.nftImg} src={NftImg} alt="" />
+        <img className={style.nftImg} src={asset.image || NftImg} alt="" />
       </div>
     </div>
   );

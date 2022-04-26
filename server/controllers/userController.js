@@ -1,4 +1,4 @@
-/* import asyncHandler from "express-async-handler";
+import asyncHandler from "express-async-handler";
 import generateToken from "../utils/generateToken.js";
 import User from "../models/userModel.js";
 
@@ -181,9 +181,9 @@ export {
   deleteUser,
   getUserById,
   updateUser,
-}; */
+};
 
-const jwt = require("jsonwebtoken");
+/* const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
@@ -271,4 +271,4 @@ module.exports = {
   registerUser,
   loginUser,
   getMe,
-};
+}; */

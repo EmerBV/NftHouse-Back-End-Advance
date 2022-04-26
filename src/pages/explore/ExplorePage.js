@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import axios from "axios"
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 import Header from "../../components/header/Header";
 import NftCard from "../../components/nft/NFTCard";
@@ -30,9 +32,23 @@ const style = {
     "flex bg-[#353840] hover:bg-[#4c505c] h-[50px] rounded-[10px] border border-[#151B22] min-w-[200px] p-[12px] cursor-pointer",
 };
 
-const ExplorePage = () => {
-  const { t } = useTranslation(['es']);
+const ExplorePage = (props) => {
+  const { t } = useTranslation(["es"]);
 
+  //const keyword = match.params.keyword;
+
+  //const pageNumber = match.params.pageNumber || 1
+
+  /* const dispatch = useDispatch();
+
+  const assetList = useSelector((state) => state.assetList);
+  const { loading, error, assets, page, pages } = assetList;
+
+  useEffect(() => {
+    dispatch(listAssets());
+  }, [dispatch]); */
+
+  // -------- FUNCIONA --------
   const [assets, setAssets] = useState([]);
 
   useEffect(() => { 
@@ -43,6 +59,17 @@ const ExplorePage = () => {
     }
     fetchAssets();
   }, [])
+  // -------- FUNCIONA --------
+
+  /* const { keyword } = props;
+  const dispatch = useDispatch();
+
+  const assetList = useSelector((state) => state.assetList);
+  const { assets } = assetList;
+
+  useEffect(() => {
+    dispatch(listAssets(keyword));
+  }, [dispatch, keyword]); */
 
   return (
     <>
@@ -61,8 +88,18 @@ const ExplorePage = () => {
         </div>
 
         <>
-          <div className={style.nftCardWrapper}>
-            <NftCard />
+          {/* <div className={style.nftCardWrapper}>
+            {assets.map((asset) => (
+              <NftCard key={asset._id} asset={asset} />
+            ))} 
+          </div> */}
+
+          <div className={style.nftCardWrapper}> 
+            {assets.map((asset) => (
+              <Link to={`/assets/${asset._id}`}>
+                <NftCard key={asset._id} asset={asset} />
+              </Link> 
+            ))} 
           </div>
         </>
       </div>

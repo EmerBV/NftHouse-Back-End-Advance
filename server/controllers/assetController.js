@@ -5,10 +5,9 @@ import Asset from "../models/assetModel.js";
 // @route   GET /api/assets
 // @access  Public
 const getAssets = asyncHandler(async (req, res) => {
-  const pageSize = 10;
-  const page = Number(req.query.pageNumber) || 1;
 
-  const keyword = req.query.keyword
+
+  /* const keyword = req.query.keyword
     ? {
         name: {
           $regex: req.query.keyword,
@@ -17,12 +16,13 @@ const getAssets = asyncHandler(async (req, res) => {
       }
     : {};
 
-  const count = await Asset.countDocuments({ ...keyword });
+  //const count = await Asset.countDocuments({ ...keyword });
   const assets = await Asset.find({ ...keyword })
-    .limit(pageSize)
-    .skip(pageSize * (page - 1));
 
-  res.json({ assets, page, pages: Math.ceil(count / pageSize) });
+  res.json({ assets }); */
+  
+  const assets = await Asset.find({})
+  res.json(assets);
 });
 
 // @desc    Fetch single asset
@@ -94,7 +94,11 @@ const updateAsset = asyncHandler(async (req, res) => {
   }
 });
 
+const getTopAssets = asyncHandler(async (req, res) => {
+  const assets = await Asset.find({}).sort({ rating: -1 }).limit(3)
 
+  res.json(assets)
+})
 
 export {
   getAssets,
@@ -102,4 +106,5 @@ export {
   deleteAsset,
   createAsset,
   updateAsset,
+  getTopAssets
 };

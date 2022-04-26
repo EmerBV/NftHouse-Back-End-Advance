@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-
 import { useTranslation } from "react-i18next";
 
 import Logo from "../../images/nftHouse-brand.png";
@@ -39,6 +38,15 @@ function Header() {
   const [open, setOpen] = useState(false);
 
   const { t } = useTranslation(['es']);
+
+  /* const dispatch = useDispatch()
+
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
+  const logoutHandler = () => {
+    dispatch(logout())
+  } */
 
   return (
     <nav className={style.navWrapper}>

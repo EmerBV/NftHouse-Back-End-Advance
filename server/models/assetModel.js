@@ -3,6 +3,11 @@ import mongoose from 'mongoose'
 // define a schema
 const assetSchema = mongoose.Schema(
   {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
+    },
     name: { 
       type: String, 
       required: true 
@@ -29,8 +34,11 @@ const assetSchema = mongoose.Schema(
       required: true,
     }
     
+  },
+  {
+    timestamps: true,
   }
-  );
+);
 
 // create the model with that schema
 const Asset = mongoose.model('Asset', assetSchema);
