@@ -132,7 +132,9 @@ const AccountPage = () => {
           </div>
         </div>
 
-        <div className={style.nftCardWrapper}>{<NFTCard />}</div>
+        <div className={style.nftCardWrapper}>
+          {<NFTCard />}
+        </div>
       </div>
     </>
   );

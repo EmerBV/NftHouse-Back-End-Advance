@@ -32,6 +32,7 @@ const assetSchema = mongoose.Schema(
     sale: {
       type: Boolean,
       required: true,
+      default: true
     }
     
   },

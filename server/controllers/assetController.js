@@ -59,12 +59,13 @@ const deleteAsset = asyncHandler(async (req, res) => {
 // @access  Private/Admin
 const createAsset = asyncHandler(async (req, res) => {
   const asset = new Asset({
-    name: "Sample name",
-    price: 0,
-    user: req.user._id,
-    image: "../../public/images/dummy.png",
-    category: "Sample category",
-    likes: 0,
+    name: req.body.name,
+    price: req.body.price,
+    user: req.user.id,
+    image: req.body.image,
+    category: req.body.category,
+    likes: req.body.likes,
+    sale: req.body.sale
   });
 
   const createdAsset = await asset.save();
