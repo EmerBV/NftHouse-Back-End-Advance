@@ -28,6 +28,25 @@ export const createAsset = createAsyncThunk(
   }
 );
 
+// Get all assets
+export const getAllAssets = createAsyncThunk(
+  "assets/getAll",
+  async (assetData, thunkAPI) => {
+    try {
+      const { data } = thunkAPI.getState();
+      return await assetService.getAllAssets(assetData, data);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 // Get user assets
 export const getAssets = createAsyncThunk(
   "assets/getAssets",
@@ -87,6 +106,23 @@ export const assetSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
       })
+
+      // PRUEBA
+      .addCase(getAllAssets.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getAllAssets.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.assets = action.payload;
+      })
+      .addCase(getAllAssets.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      // PRUEBA
+
       .addCase(getAssets.pending, (state) => {
         state.isLoading = true;
       })
@@ -106,7 +142,7 @@ export const assetSlice = createSlice({
       .addCase(deleteAsset.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.assets = state.goals.filter(
+        state.assets = state.assets.filter(
           (asset) => asset._id !== action.payload.id
         );
       })

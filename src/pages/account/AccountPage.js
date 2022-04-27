@@ -1,10 +1,15 @@
+import { useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 
 import Header from "../../components//header/Header";
-import NFTCard from "../../components/nft/NFTCard";
+import NftCard from "../../components/nft/NFTCard";
 import BannerImg from "../../images/banner.jpg";
 import ProfileImg from "../../images/azuki_logo_2.jpg";
 import EthLogo from "../../images/eth.svg";
+
+import { getAssets, reset } from "../../features/asset/assetSlice";
 
 import { CgWebsite } from "react-icons/cg";
 import { FaDiscord } from "react-icons/fa";
@@ -47,7 +52,31 @@ const style = {
 };
 
 const AccountPage = () => {
-  const { t } = useTranslation(['es']);
+  const { t } = useTranslation(["es"]);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { user } = useSelector((state) => state.auth);
+  const { assets, isLoading, isError, message } = useSelector(
+    (state) => state.assets
+  );
+
+  useEffect(() => {
+    if (isError) {
+      console.log(message);
+    }
+
+    if (!user) {
+      navigate("/login");
+    }
+
+    dispatch(getAssets());
+
+    return () => {
+      dispatch(reset());
+    };
+  }, [user, navigate, isError, message, dispatch]);
 
   return (
     <>
@@ -128,13 +157,20 @@ const AccountPage = () => {
 
         <div className={style.midRow}>
           <div className={style.collectionHeader}>
-            {t("A brand for the metaverse")}. {t("Built by the community")}. {t("We rise together")}. {t("We build together")}. {t("We grow together")}. {t("Ready to take the red bean?")}
+            {t("A brand for the metaverse")}. {t("Built by the community")}.{" "}
+            {t("We rise together")}. {t("We build together")}.{" "}
+            {t("We grow together")}. {t("Ready to take the red bean?")}
           </div>
         </div>
 
-        <div className={style.nftCardWrapper}>
-          {<NFTCard />}
+        <div className={style.nftCardWrapper}> 
+            {assets.map((asset) => (
+              <Link to={`/asset/${asset._id}`}>
+                <NftCard key={asset._id} asset={asset} />
+              </Link> 
+            ))} 
         </div>
+
       </div>
     </>
   );

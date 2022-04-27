@@ -5,6 +5,6 @@ import assetReducer from "../features/asset/assetSlice";
 export const store = configureStore({
   reducer: {
     auth: userReducer,
-    asset: assetReducer,
+    assets: assetReducer,
   },
 });

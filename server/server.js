@@ -21,6 +21,7 @@ if (process.env.NODE_ENV === "development") {
 app.use(express.json());
 
 app.use("/api/assets", assetRoutes);
+app.use("/api/account", assetRoutes);
 app.use("/api/users", userRoutes);
 
 const __dirname = path.resolve();

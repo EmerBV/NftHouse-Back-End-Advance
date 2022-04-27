@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { Link } from "react-router-dom";
+
+import { getAllAssets, reset } from "../../features/asset/assetSlice";
 
 import Header from "../../components/header/Header";
 import NftCard from "../../components/nft/NFTCard";
@@ -32,24 +34,25 @@ const style = {
     "flex bg-[#353840] hover:bg-[#4c505c] h-[50px] rounded-[10px] border border-[#151B22] min-w-[200px] p-[12px] cursor-pointer",
 };
 
-const ExplorePage = (props) => {
+function ExplorePage() {
   const { t } = useTranslation(["es"]);
 
-  //const keyword = match.params.keyword;
+  const dispatch = useDispatch()
 
-  //const pageNumber = match.params.pageNumber || 1
-
-  /* const dispatch = useDispatch();
-
-  const assetList = useSelector((state) => state.assetList);
-  const { loading, error, assets, page, pages } = assetList;
+  const assetsAll = useSelector((state) => state.assets)
+  const { assets  } = assetsAll
 
   useEffect(() => {
-    dispatch(listAssets());
-  }, [dispatch]); */
+
+    dispatch(getAllAssets())
+
+    return () => {
+      dispatch(reset())
+    }
+  }, [dispatch])
 
   // -------- FUNCIONA --------
-  const [assets, setAssets] = useState([]);
+  /* const [assets, setAssets] = useState([]);
 
   useEffect(() => { 
     console.log("Hello")
@@ -58,18 +61,8 @@ const ExplorePage = (props) => {
       setAssets(data);
     }
     fetchAssets();
-  }, [])
+  }, []) */
   // -------- FUNCIONA --------
-
-  /* const { keyword } = props;
-  const dispatch = useDispatch();
-
-  const assetList = useSelector((state) => state.assetList);
-  const { assets } = assetList;
-
-  useEffect(() => {
-    dispatch(listAssets(keyword));
-  }, [dispatch, keyword]); */
 
   return (
     <>
@@ -88,15 +81,9 @@ const ExplorePage = (props) => {
         </div>
 
         <>
-          {/* <div className={style.nftCardWrapper}>
-            {assets.map((asset) => (
-              <NftCard key={asset._id} asset={asset} />
-            ))} 
-          </div> */}
-
           <div className={style.nftCardWrapper}> 
             {assets.map((asset) => (
-              <Link to={`/assets/${asset._id}`}>
+              <Link to={`/asset/${asset._id}`}>
                 <NftCard key={asset._id} asset={asset} />
               </Link> 
             ))} 

@@ -4,24 +4,18 @@ import Asset from "../models/assetModel.js";
 // @desc    Fetch all assets
 // @route   GET /api/assets
 // @access  Public
+const getAllAssets = asyncHandler(async (req, res) => {
+  const assets = await Asset.find();
+
+  res.json(assets);
+});
+
+// @desc    Fetch user assets
+// @route   GET /api/account
+// @access  Private
 const getAssets = asyncHandler(async (req, res) => {
+  const assets = await Asset.find({ user: req.user.id });
 
-
-  /* const keyword = req.query.keyword
-    ? {
-        name: {
-          $regex: req.query.keyword,
-          $options: "i",
-        },
-      }
-    : {};
-
-  //const count = await Asset.countDocuments({ ...keyword });
-  const assets = await Asset.find({ ...keyword })
-
-  res.json({ assets }); */
-  
-  const assets = await Asset.find({})
   res.json(assets);
 });
 
@@ -65,7 +59,7 @@ const createAsset = asyncHandler(async (req, res) => {
     image: req.body.image,
     category: req.body.category,
     likes: req.body.likes,
-    sale: req.body.sale
+    sale: req.body.sale,
   });
 
   const createdAsset = await asset.save();
@@ -76,8 +70,7 @@ const createAsset = asyncHandler(async (req, res) => {
 // @route   PUT /api/assets/:id
 // @access  Private/Admin
 const updateAsset = asyncHandler(async (req, res) => {
-  const { name, price, image, category } =
-    req.body;
+  const { name, price, image, category } = req.body;
 
   const asset = await Asset.findById(req.params.id);
 
@@ -96,16 +89,17 @@ const updateAsset = asyncHandler(async (req, res) => {
 });
 
 const getTopAssets = asyncHandler(async (req, res) => {
-  const assets = await Asset.find({}).sort({ rating: -1 }).limit(3)
+  const assets = await Asset.find({}).sort({ rating: -1 }).limit(3);
 
-  res.json(assets)
-})
+  res.json(assets);
+});
 
 export {
+  getAllAssets,
   getAssets,
   getAssetById,
   deleteAsset,
   createAsset,
   updateAsset,
-  getTopAssets
+  getTopAssets,
 };
