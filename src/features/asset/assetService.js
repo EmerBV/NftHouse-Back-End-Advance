@@ -2,12 +2,11 @@ import axios from "axios";
 
 const API_URL = "/api/assets/";
 
-const API_URL2 = "/api/account/";
-
 // Create new asset
 const createAsset = async (assetData, token) => {
   const config = {
     headers: {
+      //'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
   };
@@ -24,6 +23,14 @@ const getAllAssets = async () => {
   return response.data;
 };
 
+// Get single asset
+const getAssetById = async (assetId) => {
+
+  const response = await axios.get(API_URL + assetId);
+
+  return response.data;
+};
+
 // Get user assets
 const getAssets = async (token) => {
   const config = {
@@ -32,7 +39,7 @@ const getAssets = async (token) => {
     },
   };
 
-  const response = await axios.get(API_URL2, config);
+  const response = await axios.get(API_URL, config);
 
   return response.data;
 };
@@ -50,11 +57,12 @@ const deleteAsset = async (assetId, token) => {
   return response.data;
 };
 
-const goalService = {
+const assetService = {
   createAsset,
   getAllAssets,
+  getAssetById,
   getAssets,
   deleteAsset,
 };
 
-export default goalService;
+export default assetService;

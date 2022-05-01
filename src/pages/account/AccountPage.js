@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 
@@ -49,16 +49,16 @@ const style = {
     "text-[#8a939b] text-xl w-max-1/4 flex-wrap mt-4 text-center mx-3",
   nftCardWrapper:
     "grid 2xl:grid-cols-9 xl:grid-cols-6 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4 mx-0 items-center justify-center py-8 overflow-hidden min-w-[600px] px-[28px] block",
+  emptyText: "text-white text-xl font-bold p-[100px]"
 };
 
 const AccountPage = () => {
   const { t } = useTranslation(["es"]);
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.auth);
-  const { assets, isLoading, isError, message } = useSelector(
+  const { userAssets, isLoading, isError, message } = useSelector(
     (state) => state.assets
   );
 
@@ -67,16 +67,12 @@ const AccountPage = () => {
       console.log(message);
     }
 
-    if (!user) {
-      navigate("/login");
-    }
-
     dispatch(getAssets());
 
     return () => {
       dispatch(reset());
     };
-  }, [user, navigate, isError, message, dispatch]);
+  }, [user, isError, message, dispatch]);
 
   return (
     <>
@@ -163,14 +159,17 @@ const AccountPage = () => {
           </div>
         </div>
 
-        <div className={style.nftCardWrapper}> 
-            {assets.map((asset) => (
+        {userAssets.length > 0 ? (
+          <div className={style.nftCardWrapper}>
+            {userAssets.map((asset) => (
               <Link to={`/asset/${asset._id}`}>
                 <NftCard key={asset._id} asset={asset} />
-              </Link> 
-            ))} 
-        </div>
-
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <div className={style.emptyText}>{t("You don't have any assets")}</div>
+        )}
       </div>
     </>
   );

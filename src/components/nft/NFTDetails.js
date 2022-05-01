@@ -23,21 +23,21 @@ const style = {
   divider: "border-r-2",
 };
 
-const NFTDetails = () => {
+const NFTDetails = ({ id, name,  likes, user }) => {
   const { t } = useTranslation(['es']);
 
   return (
     <div className={style.wrapper}>
       <div className={style.infoContainer}>
-        <div className={style.accent}>Id</div>
-        <div className={style.nftTitle}>Azuki</div>
+        <div className={style.accent}>{id}</div>
+        <div className={style.nftTitle}>{name}</div>
         <div className={style.otherInfo}>
           <div className={style.ownedBy}>
-            {t("Owned by")}<span className={style.ownedByName}>EmerBV</span>
+            {t("Owned by")}<span className={style.ownedByName}>{user}</span>
           </div>
           <div className={style.likes}>
             <AiFillHeart className={style.likeIcon} />
-            2.3K {t("favorites")}
+            {likes} {t("favorites")}
           </div>
         </div>
       </div>

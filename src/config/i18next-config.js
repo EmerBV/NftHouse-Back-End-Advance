@@ -8,16 +8,7 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    /* backend: {
-      loadPath: "/locales/{{lng}}/{{ns}}.json",
-		}, */
     fallbackLng: "en",
-    /* debug: false,
-    ns: ["en", "es"],
-    interpolation: {
-			espaceValue: false,
-			formatSeparator: ",",
-		}, */
 		react: {
 			wait: true,
 		},

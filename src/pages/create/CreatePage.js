@@ -1,10 +1,14 @@
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import axios from "axios";
 import { useTranslation } from "react-i18next";
 
+import { createAsset, reset } from "../../features/asset/assetSlice";
 import Header from "../../components/header/Header";
 
 import { IoMdWallet, IoMdImage, IoMdClose } from "react-icons/io";
-
-//import { useRef, useState, useEffect } from "react";
 
 const style = {
   createWrapper: "block w-full h-full",
@@ -59,7 +63,74 @@ const CreatePage = () => {
     }
   }, [image]); */
 
-  const { t } = useTranslation(['es']);
+  const { t } = useTranslation(["es"]);
+
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [image, setImage] = useState("");
+  const [category, setCategory] = useState("");
+  const [event, setEvent] = useState("");
+  const [uploading, setUploading] = useState(false);
+  const [inputFile, setInputFile] = useState(null);
+
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  const handleEvent = (e) => {
+    const valueEvent = Boolean(e.target.value, (option) => option.value);
+    setEvent(valueEvent);
+  };
+
+  const handleCategory = (e) => {
+    const valueCategory = Array.from(
+      e.target.selectedOptions,
+      (option) => option.value
+    );
+    setCategory(valueCategory);
+  };
+
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", file);
+    setUploading(true);
+
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
+
+      const { data } = await axios.post("/api/upload", formData, config);
+
+      setImage(data);
+      setUploading(false);
+    } catch (error) {
+      console.error(error);
+      setUploading(false);
+    }
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    const assetData = {
+      name,
+      price,
+      image,
+      category,
+      event,
+    };
+
+    dispatch(createAsset(assetData));
+    /* setName("");
+    setPrice("");
+    setImage("");
+    setCategory("");
+    setEvent(""); */
+  };
 
   return (
     <>
@@ -71,7 +142,7 @@ const CreatePage = () => {
             <div className={style.createTextContainer}>
               <h1 className={style.createText}>{t("Create New Item")}</h1>
             </div>
-            <form className={style.formContainer}>
+            <form className={style.formContainer} onSubmit={submitHandler}>
               <p className={style.detailTopContent}>
                 <span className={style.asterisk}>*</span>
                 {t("Required fields")}
@@ -84,25 +155,31 @@ const CreatePage = () => {
                       <span className={style.asterisk}>*</span>
                     </label>
                     <span className={style.imageText}>
-                      {t("File types supported")}: JPG, PNG, GIF, SVG, MP4, WEBM, MP3,
-                      WAV, OGG, GLB, GLTF. Max {t("size")}: 100 MB
+                      {t("File types supported")}: JPG, PNG, GIF, SVG, MP4,
+                      WEBM, MP3, WAV, OGG, GLB, GLTF. Max {t("size")}: 100 MB
                     </span>
                   </div>
-                  <div className={style.imageInputContainer} role="button">
+                  <div className={style.imageInputContainer} role="button" onChange={uploadFileHandler}>
                     <input
                       className={style.imageInput}
                       accept="image/*, video/*, audio/*"
                       type="file"
                       autoComplete="off"
                       overflow="hidden"
-                      required
-                    />                  
+                      value={image}
+                      //onChange={uploadFileHandler}
+                      onChange={(e) => setImage(e.target.value)}
+                      //required
+                    />
+                    {uploading}
                     <div className="absolute z-71 right-[12px] top-[12px] block cursor-pointer text-[15px]">
                       <button className="inline-flex items-center border-none p-0 m-0">
-                        <i className="text-[24px]"><IoMdClose /></i>
+                        <i className="text-[24px]">
+                          <IoMdClose />
+                        </i>
                       </button>
                     </div>
-                    {/* <div className="absolute ring-0 z-1 items-center justify-center flex flex-col opacity-0"> */}
+
                     <div className="absolute ring-0 z-1 items-center justify-center flex flex-col">
                       <i className={style.imageIcon}>
                         <IoMdImage />
@@ -127,6 +204,9 @@ const CreatePage = () => {
                           className={style.placeholderContainer}
                           type="text"
                           placeholder={t("Item name")}
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          //onChange={handleInputName}
                           required
                         />
                       </div>
@@ -139,6 +219,9 @@ const CreatePage = () => {
                         <input
                           className={style.placeholderContainer}
                           placeholder={t("Item price")}
+                          value={price}
+                          onChange={(e) => setPrice(e.target.value)}
+                          //onChange={handleInputNumber}
                           required
                         />
                       </div>
@@ -148,14 +231,21 @@ const CreatePage = () => {
                         <span className={style.asterisk}>*</span>
                       </label>
                       <div className={style.inputsContainer}>
-                        <select className={style.selectContainer}>
+                        <select
+                          className={style.selectContainer}
+                          onChange={handleCategory}
+                          //onChange={handleCategorySelector}
+                        >
                           <option className={style.optionContainer}>
                             {t("Select category")}
                           </option>
-                          <option className={style.optionContainer}>
+                          <option className={style.optionContainer} value="Art">
                             {t("Art")}
                           </option>
-                          <option className={style.optionContainer}>
+                          <option
+                            className={style.optionContainer}
+                            value="Collectibles"
+                          >
                             {t("Collectibles")}
                           </option>
                         </select>
@@ -166,7 +256,11 @@ const CreatePage = () => {
                         <span className={style.asterisk}>*</span>
                       </label>
                       <div className={style.inputsContainer}>
-                        <select className={style.selectContainer}>
+                        <select
+                          className={style.selectContainer}
+                          onChange={handleEvent}
+                          //onChange={handleEventSelector}
+                        >
                           <option className={style.optionContainer}>
                             {t("Select an event")}
                           </option>
@@ -186,7 +280,17 @@ const CreatePage = () => {
                       </div>
 
                       <div className={style.buttonWrapper}>
-                        <button className={style.button} type="submit" disabled>
+                        <button
+                          className={style.button}
+                          type="submit"
+                          disabled={
+                            !name ||
+                            !price ||
+                            event === null ||
+                            category === null ||
+                            category?.length === 0
+                          }
+                        >
                           <i className={style.wallet}>
                             <IoMdWallet />
                           </i>

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
@@ -19,6 +20,8 @@ const style = {
   ctaContainer: "flex px-3",
   accentedButton:
     "relative text-lg font-bold lg:px-20 md:px-15 px-10 md:py-4 py-3 md:mr-5 mr-3 mb-3 bg-[#2081E2] rounded-[10px] text-white hover:bg-[#15B2E5] cursor-pointer border-[1px] border-[#151B22] justify-center text-center items-center",
+  accentedButtonFull:
+    "relative text-lg font-bold lg:px-20 md:px-15 px-10 md:py-4 py-3 md:mr-5 mr-3 mb-3 bg-[#2081E2] rounded-[10px] text-white hover:bg-[#15B2E5] cursor-pointer border-[1px] border-[#151B22] justify-center text-center items-center w-full",
   button:
     "relative text-lg font-bold lg:px-20 md:px-15 px-10 md:py-4 py-3 mr-5 mb-3 bg-[#353840] rounded-[10px] text-[#e4e8ea] hover:bg-[#4c505c] cursor-pointer border-[1px] border-[#151B22]",
   cardContainer:
@@ -37,6 +40,8 @@ const style = {
 const Hero = () => {
   const { t } = useTranslation(["es"]);
 
+  const { user } = useSelector((state) => state.auth);
+
   return (
     <>
       <div className={style.wrapper}>
@@ -53,12 +58,22 @@ const Hero = () => {
                 )}
               </span>
               <div className={style.ctaContainer}>
-                <Link to="/assets" className={style.accentedButton}>
-                  {t("Explore")}
-                </Link>
-                <Link to="/asset/create" className={style.button}>
-                  {t("Create")}
-                </Link>
+                {user ? (
+                  <>
+                    <Link to="/assets" className={style.accentedButton}>
+                      {t("Explore")}
+                    </Link>
+                    <Link to="/asset/create" className={style.button}>
+                      {t("Create")}
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <Link to="/assets" className={style.accentedButtonFull}>
+                      {t("Explore")}
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
             <div className={style.cardContainer}>

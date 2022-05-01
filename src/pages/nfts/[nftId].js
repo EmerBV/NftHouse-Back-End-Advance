@@ -1,4 +1,8 @@
+import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { useSelector, useDispatch } from "react-redux";
+
+import { getAssetById, reset } from "../../features/asset/assetSlice";
 
 import Header from "../../components/header/Header";
 import NFTImage from "../../components/nft/NFTImage";
@@ -27,7 +31,54 @@ const style = {
   activityContainer: "overflow-hidden block",
 };
 
-const Nft = ({ asset }) => {
+const Nft = () => {
+  /* const [asset, setAsset] = useState(null)
+  const { id } = useParams()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    //getAsset(id)
+  }, []) */
+ /*  const assetsAll = useSelector((state) => state.assets.id)
+  const { assets  } = assetsAll
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getAllAssets())
+
+    return () => {
+      dispatch(reset())
+    }
+      
+  }, [dispatch]) */
+
+  /* const dispatch = useDispatch()
+
+  const selectedAsset = useSelector((state) => state.assets)
+  const { asset } = selectedAsset
+
+  useEffect(() => {
+
+    dispatch(getAssetById())
+
+    return () => {
+      dispatch(reset())
+    }
+  }, [dispatch]) */
+
+  //const [asset, setAsset] = useState(null)
+  const { id } = useParams()
+  const navigate = useNavigate()
+
+  const asset = useSelector((state) => state.asset)
+
+  useEffect(() => {
+    getAssetById()
+      //.then((asset) => setAsset(asset))
+
+  }, [id, navigate])
+
   return (
     <>
       <Header />
@@ -39,8 +90,8 @@ const Nft = ({ asset }) => {
               <div className={style.assetWrapper}>
                 <div className={style.assetContainer}>
                   <div className={style.topContent}>
-                    <div className={style.cardContainer}>
-                      <NFTImage src={asset.image} />
+                    <div className={style.cardContainer}>  
+                      <NFTImage {...asset} />
                     </div>
                     <div className={style.detailsPurchaseWrapper}>
                       <div className={style.detailsPurchaseContainer}>

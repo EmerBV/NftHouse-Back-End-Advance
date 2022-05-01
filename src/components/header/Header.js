@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
+import { useSelector } from "react-redux";
+
 import Logo from "../../images/nftHouse-brand.png";
 
 import LanguageButton from "../common/LanguageButton";
@@ -37,16 +39,9 @@ const style = {
 function Header() {
   const [open, setOpen] = useState(false);
 
-  const { t } = useTranslation(['es']);
+  const { t } = useTranslation(["es"]);
 
-  /* const dispatch = useDispatch()
-
-  const userLogin = useSelector((state) => state.userLogin)
-  const { userInfo } = userLogin
-
-  const logoutHandler = () => {
-    dispatch(logout())
-  } */
+  const { user } = useSelector((state) => state.auth);
 
   return (
     <nav className={style.navWrapper}>
@@ -63,7 +58,7 @@ function Header() {
         </div>
       </Link>
 
-      <div onClick={() => setOpen(!open)} className={style.menuBtn}>
+      <div className={style.menuBtn} onClick={() => setOpen(!open)}>
         {!open ? <AiOutlineMenu /> : <CgClose />}
       </div>
 
@@ -87,23 +82,37 @@ function Header() {
             <div className={style.headerItem}>{t("Explore")}</div>
           </NavLink>
 
-          <NavLink to="/asset/create">
-            <div className={style.headerItem}>{t("Create")}</div>
-          </NavLink>
+          {user ? (
+            <>
+              <NavLink to="/create">
+                <button className={style.headerItem}>{t("Create")}</button>
+              </NavLink>
 
-          <div className={style.headerIconContainer}>
-            <NavLink to="/account" end>
-              <div className={style.headerIcon}>
-                <CgProfile title={t("Account")} />
+              <div className={style.headerIconContainer}>
+                <NavLink to="/account">
+                  <button className={style.headerIcon}>
+                    <CgProfile title={t("Account")} />
+                  </button>
+                </NavLink>
+
+                <NavLink to="/login">
+                  <LoginButton />
+                </NavLink>
+
+                <LanguageButton />
               </div>
-            </NavLink>
+            </>
+          ) : (
+            <>
+              <div className={style.headerIconContainer}>
+                <NavLink to="/login">
+                  <LoginButton />
+                </NavLink>
 
-            <NavLink to="/login">            
-                <LoginButton />                      
-            </NavLink>
-
-            <LanguageButton />
-          </div>
+                <LanguageButton />
+              </div>
+            </>
+          )}
         </div>
       </div>
     </nav>

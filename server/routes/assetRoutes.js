@@ -8,12 +8,18 @@ import {
   createAsset,
   updateAsset
 } from "../controllers/assetController.js";
+
 import { protect, admin } from "../middleware/authMiddleware.js";
 
 const assetRouter = express.Router();
 
-assetRouter.route("/").get(getAllAssets);
-assetRouter.route("/").get(getAssets).post(protect, admin, createAsset);
+assetRouter
+  .route("/")
+  .get(getAllAssets);
+assetRouter
+  .route("/")
+  .get(getAssets)
+  .post(protect, admin, createAsset);
 assetRouter
   .route("/:id")
   .get(getAssetById)

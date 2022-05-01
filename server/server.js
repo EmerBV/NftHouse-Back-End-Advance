@@ -7,6 +7,7 @@ import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import connectDB from "./config/connectMongoose.js";
 import assetRoutes from "./routes/assetRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import uploadRoutes from "./routes/uploadRoutes.js";
 
 dotenv.config();
 
@@ -19,18 +20,22 @@ if (process.env.NODE_ENV === "development") {
 }
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/assets", assetRoutes);
-app.use("/api/account", assetRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/upload", uploadRoutes);
 
 const __dirname = path.resolve();
 
+app.use(express.static(path.join(__dirname, "/uploads")));
+
+// Serve frontend
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "/src/build")));
+  app.use(express.static(path.join(__dirname, "/public")));
 
   app.get("*", (req, res) =>
-    res.sendFile(path.resolve(__dirname, "src", "build", "index.html"))
+    res.sendFile(path.resolve(__dirname, "/", "public", "index.html"))
   );
 } else {
   app.get("/", (req, res) => {

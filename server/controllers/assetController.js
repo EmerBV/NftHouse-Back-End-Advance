@@ -14,9 +14,9 @@ const getAllAssets = asyncHandler(async (req, res) => {
 // @route   GET /api/account
 // @access  Private
 const getAssets = asyncHandler(async (req, res) => {
-  const assets = await Asset.find({ user: req.user.id });
+  const userAssets = await Asset.find({ user: req.user.id });
 
-  res.json(assets);
+  res.json(userAssets);
 });
 
 // @desc    Fetch single asset

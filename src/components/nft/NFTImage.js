@@ -17,7 +17,7 @@ const style = {
   nftImg: "w-full",
 };
 
-const NFTImage = ({ asset }) => {
+const NFTImage = ({ ...asset }) => {
   return (
     <div className={style.nftWrapper}>
       <div className={style.topBar}>
@@ -25,7 +25,7 @@ const NFTImage = ({ asset }) => {
           <img className={style.ethLogo} src={EthLogo} alt="" />
           <div className={style.likesCounter}>
             <AiOutlineHeart className={style.likeIcon} />
-            <span className={style.likeText}>2.3K</span>
+            <span className={style.likeText}>{asset.likes}</span>
           </div>
         </div>
       </div>

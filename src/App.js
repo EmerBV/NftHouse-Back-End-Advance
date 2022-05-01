@@ -21,8 +21,8 @@ function App() {
             <Routes>
               <Route path="/" element={<Hero />} />
               <Route path="/assets" element={<ExplorePage />} />
-              <Route path="/asset/:id" element={<Nft />} />
-              <Route path="/asset/create" element={<CreatePage />} />
+              <Route path="/assets/:id" element={<Nft />} />
+              <Route path="/create" element={<CreatePage />} />
               <Route path="/account" element={<AccountPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignupPage />} />

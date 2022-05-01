@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import axios from "axios";
 
 import NftImg from "../../images/1.png";
 import EthLogo from "../../images/eth.svg";
@@ -35,16 +34,6 @@ const NftCard = ({ asset }) => {
 
   const navigate = useNavigate();
 
-  /* const [asset, setAsset] = useState({});
-
-  useEffect(() => {
-    const fetchAsset = async () => {
-      const { data } = await axios.get(`/api/assets/${match.params.id}`);
-      setAsset(data);
-    };
-    fetchAsset();
-  }, [match]); */
-
   return (
     <div className={style.nftWrapper}>
       <div 
@@ -54,7 +43,7 @@ const NftCard = ({ asset }) => {
             pathname: `/assets/${asset._id}`
           })
         }}
-        >
+      >
         <img className={style.nftImg} src={asset.image || NftImg} alt="" />
       </div>
 
