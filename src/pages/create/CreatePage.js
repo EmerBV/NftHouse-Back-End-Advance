@@ -47,8 +47,8 @@ const style = {
 };
 
 const CreatePage = () => {
-  /* const [image, setImage] = useState();
-  const [preview, setPreview] = useState();
+  //const [image, setImage] = useState();
+ /*  const [preview, setPreview] = useState();
   const fileInputRef = useRef();
 
   useEffect(() => {
@@ -103,7 +103,7 @@ const CreatePage = () => {
         },
       };
 
-      const { data } = await axios.post("/api/upload", formData, config);
+      const { data } = await axios.post("/api/upload/", formData, config);
 
       setImage(data);
       setUploading(false);
@@ -116,20 +116,20 @@ const CreatePage = () => {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    const assetData = {
+    /* const assetData = {
       name,
       price,
       image,
       category,
       event,
-    };
+    }; */
 
-    dispatch(createAsset(assetData));
-    /* setName("");
+    dispatch(createAsset());
+    setName("");
     setPrice("");
     setImage("");
     setCategory("");
-    setEvent(""); */
+    setEvent("");
   };
 
   return (

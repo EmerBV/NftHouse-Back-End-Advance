@@ -28,14 +28,14 @@ app.use("/api/upload", uploadRoutes);
 
 const __dirname = path.resolve();
 
-app.use(express.static(path.join(__dirname, "/uploads")));
+app.use('/uploads', express.static(path.join(__dirname, "/uploads")));
 
 // Serve frontend
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/public")));
 
   app.get("*", (req, res) =>
-    res.sendFile(path.resolve(__dirname, "/", "public", "index.html"))
+    res.sendFile(path.resolve(__dirname, "public", "index.html"))
   );
 } else {
   app.get("/", (req, res) => {

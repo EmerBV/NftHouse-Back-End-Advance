@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 
 import { getAllAssets, reset } from "../../features/asset/assetSlice";
 
@@ -80,13 +79,6 @@ function ExplorePage() {
         </div>
 
         <>
-          {/* <div className={style.nftCardWrapper}> 
-            {assets.map((asset) => (
-              <Link to={`/asset/${asset._id}`}>
-                <NftCard key={asset._id} asset={asset} />
-              </Link> 
-            ))} 
-          </div> */}
           <div className={style.nftCardWrapper} > 
             {assets.map((asset) => (                
               <NftCard key={asset._id} asset={asset} />              
